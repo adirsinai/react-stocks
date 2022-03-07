@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 const Stock = (stock) => {
-  const { Symbol, Name, Change, PercentChange, LastTradePriceOnly, MarketCap } =
-    stock;
+  const {
+    Symbol,
+    Name,
+    Change,
+    PercentChange,
+    LastTradePriceOnly,
+    MarketCap,
+    changePostionUp,
+    changePostionDown,
+    index,
+  } = stock;
   const percentChange = parseFloat(PercentChange).toFixed(2);
   const lastTradePriceOnly = parseFloat(LastTradePriceOnly).toFixed(2);
   const marketCap = parseFloat(MarketCap).toFixed(2);
@@ -24,6 +33,8 @@ const Stock = (stock) => {
       setBtnCurrentState("MarketCap");
     }
   };
+
+
   return (
     <li>
       <p>
@@ -47,10 +58,16 @@ const Stock = (stock) => {
       </div>
       <div className="sort">
         <button>
-          <TiArrowSortedUp className="arrow-btn up" />
+          <TiArrowSortedUp
+            className="arrow-btn up"
+            onClick={() => changePostionUp(index)}
+          />
         </button>
         <button>
-          <TiArrowSortedDown className="arrow-btn down" />
+          <TiArrowSortedDown
+            className="arrow-btn down"
+            onClick={() => changePostionDown(index)}
+          />
         </button>
       </div>
     </li>

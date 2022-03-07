@@ -14,6 +14,10 @@ const Header = () => {
           <FiSettings className="icon" />
         </div>
       </header>
+      <form className="form-control">
+        <input type="text" className="searchTerm" placeholder="Search Stock..." />
+      </form>
+
       <hr />
     </>
   );

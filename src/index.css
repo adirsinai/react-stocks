@@ -118,3 +118,21 @@ li:first-child div:nth-child(3) .up {
   color: #fff;
   padding: 6px 20px;
 }
+
+.form-control {
+  width: 100%;
+  position: relative;
+  text-align: center;
+
+  }
+
+  input{
+    border: 2px solid #43BF17;
+      margin-bottom: 6px;
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px 5px;
+      outline: none;
+  }
+
+
+  

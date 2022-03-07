@@ -7,6 +7,7 @@ const App = () => {
   return (
     <section>
       <Header />
+
       <List />
     </section>
   );
