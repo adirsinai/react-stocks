@@ -1,13 +1,120 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "HelveticaNeueW01-55Roma";
+  src: url("./assets/fonts/HelveticaNeueW01-55Roman.eot");
+  src: url("./assets/fonts/HelveticaNeueW01-55Roman.eot") format("eot"),
+    url("./assets/fonts/HelveticaNeueW01-55Roman.woff") format("woff"),
+    url("./assets/fonts/HelveticaNeueW01-55Roman.ttf") format("truetype"),
+    url("./assets/fonts/HelveticaNeueW01-55Roman.svg") format("svg");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: HelveticaNeueW01-55Roma;
+  font-style: normal;
+  background-color: #f0f4f7;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 25%;
+}
+
+section {
+  height: 550px;
+  width: 50%;
+  margin: 10% auto;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+header {
+  padding: 15px 25px;
+}
+
+h2 {
+  font-size: 30px;
+  color: #43bf17;
+  padding-top: 15px;
+}
+
+p {
+  font-size: 26px;
+  color: #8c9ea3;
+}
+
+hr {
+  border-top: 1px solid #f0f4f7;
+}
+
+li {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  grid-column-gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid #f0f4f7;
+}
+
+span {
+  padding-right: 15px;
+  font-size: 18px;
+  color: #71878e;
+}
+
+.icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 35px;
+  height: 65px;
+  margin-left: 10px;
+  color: #cacaca;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow-btn {
+  height: 30px;
+  width: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ababab;
+}
+
+li:first-child div:nth-child(3) .up {
+  color: #eeeeee;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.display-btn {
+  
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #fff;
+  padding: 6px 20px;
 }
