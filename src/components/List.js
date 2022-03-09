@@ -1,30 +1,9 @@
-import React, { useState } from "react";
-import { data } from "../utils/StockData";
+import React, { useContext, useState } from "react";
 import Stock from "../components/Stock";
+import { useGlobalContext } from "../context";
 
 const List = () => {
-  const [stocks, setStocks] = useState(data);
-
-  const changePostionUp = (stockIndex) => {
-    let data = [...stocks];
-    let temp = data[stockIndex - 1];
-    data[stockIndex - 1] = data[stockIndex];
-    data[stockIndex] = temp;
-
-    setStocks(data);
-  };
-
-  const changePostionDown = (stockIndex) => {
-    let data = [...stocks];
-    if (stockIndex === data.length -1) {
-      stockIndex = 1;
-    } 
-    let temp = data[stockIndex + 1];
-    data[stockIndex + 1] = data[stockIndex];
-    data[stockIndex] = temp;
-
-setStocks(data);
-  };
+  const {stocks,changePostionUp,changePostionDown} = useGlobalContext();
 
   return (
     <ul>

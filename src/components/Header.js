@@ -2,6 +2,7 @@ import React from "react";
 import { HiOutlineFilter } from "react-icons/hi";
 import { BsArrowClockwise, BsSearch } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
+import Search from "./Search";
 const Header = () => {
   return (
     <>
@@ -14,10 +15,8 @@ const Header = () => {
           <FiSettings className="icon" />
         </div>
       </header>
-      <form className="form-control">
-        <input type="text" className="searchTerm" placeholder="Search Stock..." />
-      </form>
 
+      <Search />
       <hr />
     </>
   );
