@@ -1,15 +1,7 @@
-import React, { useState } from 'react'
+import React from "react";
 
 const Search = () => {
+  return <div>Search</div>;
+};
 
-  const [error,setError] = useState({show:false,msg:''})
-  
-
-  return (
-    <form className="form-control">
-      <input type="text" className="searchTerm" placeholder="Search Stock..." />
-    </form>
-  );
-}
-
-export default Search
+export default Search;

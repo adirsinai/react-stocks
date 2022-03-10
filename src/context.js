@@ -6,6 +6,7 @@ const AppContext = React.createContext()
 const AppProvider = ({children}) => {
  const [stocks, setStocks] = useState(data);
 
+
  const changePostionUp = (stockIndex) => {
    let data = [...stocks];
    let temp = data[stockIndex - 1];
