@@ -3,21 +3,24 @@ import Stock from "../components/Stock";
 import { useGlobalContext } from "../context";
 
 const List = () => {
-  const {stocks,changePostionUp,changePostionDown} = useGlobalContext();
+  const { stocks, changePostionUp, changePostionDown, filterStocks } =
+    useGlobalContext();
 
   return (
     <ul>
-      {stocks.map((stock, index) => {
-        return (
-          <Stock
-            key={stock.Symbol}
-            {...stock}
-            changePostionUp={changePostionUp}
-            changePostionDown={changePostionDown}
-            index={index}
-          />
-        );
-      })}
+      {stocks
+        .filter((stock) => stock.Symbol.toLowerCase().includes(filterStocks))
+        .map((stock, index) => {
+          return (
+            <Stock
+              key={stock.Symbol}
+              {...stock}
+              changePostionUp={changePostionUp}
+              changePostionDown={changePostionDown}
+              index={index}
+            />
+          );
+        })}
     </ul>
   );
 };
