@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { HiOutlineFilter } from "react-icons/hi";
 import { BsArrowClockwise, BsSearch } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
+import { useGlobalContext } from "../context";
 import Filter from "./Filter";
 import Search from "./Search";
 import Refresh from "./Refresh";
 import Settings from "./Settings";
 
 const Header = () => {
+  const { hideSortBtn, setHideSortBtn } = useGlobalContext();
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
   const [openRefreshMenu, setOpenRefreshMenu] = useState(false);
   const [openFilterMenu, setOpenFilterMenu] = useState(false);
@@ -28,6 +30,7 @@ const Header = () => {
     }
     if (currentMenuItem === "filter") {
       setOpenFilterMenu(!openFilterMenu);
+      setHideSortBtn(!hideSortBtn);
       setOpenSearchMenu(false);
       setOpenRefreshMenu(false);
       setOpenSettingMenu(false);
@@ -39,6 +42,7 @@ const Header = () => {
       setOpenRefreshMenu(false);
     }
   };
+
 
   return (
     <>

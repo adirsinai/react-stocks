@@ -5,7 +5,8 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [stocks, setStocks] = useState(data);
-  const [filterStocks,setFilterStocks] = useState('')
+  const [filterStocks, setFilterStocks] = useState("");
+  const [hideSortBtn,setHideSortBtn] = useState(true)
 
   const changePostionUp = (stockIndex) => {
     let data = [...stocks];
@@ -28,17 +29,23 @@ const AppProvider = ({ children }) => {
     setStocks(data);
   };
 
-
-// useEffect(() => {
-  
-//   setStocks(stocks.filter((stock) =>
-//     stock.Symbol.toLowerCase().includes(filterStocks)
-//   ));
-// }, [filterStocks]);
+  const removeStock = (symbol)=>{
+const tempList = stocks.filter((stock)=> stock.Symbol !== symbol)
+setStocks(tempList);
+  }
 
   return (
     <AppContext.Provider
-      value={{ stocks, changePostionUp, changePostionDown,filterStocks ,setFilterStocks }}
+      value={{
+        stocks,
+        changePostionUp,
+        changePostionDown,
+        filterStocks,
+        setFilterStocks,
+        hideSortBtn,
+        setHideSortBtn,
+        removeStock
+      }}
     >
       {children}
     </AppContext.Provider>

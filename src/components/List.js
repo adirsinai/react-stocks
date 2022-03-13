@@ -8,6 +8,11 @@ const List = () => {
 
   return (
     <ul>
+      {stocks.length === 0 && (
+        <div className="empty">
+          <h2>The list is empty</h2>
+        </div>
+      )}
       {stocks
         .filter((stock) => stock.Symbol.toLowerCase().includes(filterStocks))
         .map((stock, index) => {

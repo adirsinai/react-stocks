@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-
+import { FaTrash } from "react-icons/fa";
+import { useGlobalContext } from "../context";
 const Stock = (stock) => {
+
+  const { hideSortBtn, removeStock } = useGlobalContext();
   const {
     Symbol,
     Name,
@@ -35,12 +38,16 @@ const Stock = (stock) => {
   };
 
 
+
   return (
     <li>
       <p>
         {Symbol}({Name})
       </p>
       <div>
+        <button className="remove-btn" onClick={()=>removeStock(Symbol)}>
+          <FaTrash />
+        </button>
         <span>{change}</span>
         <button
           className="display-btn"
@@ -56,20 +63,22 @@ const Stock = (stock) => {
             (btnCurrentState === "MarketCap" && marketCap + "B")}
         </button>
       </div>
-      <div className="sort">
-        <button>
-          <TiArrowSortedUp
-            className="arrow-btn up"
-            onClick={() => changePostionUp(index)}
-          />
-        </button>
-        <button>
-          <TiArrowSortedDown
-            className="arrow-btn down"
-            onClick={() => changePostionDown(index)}
-          />
-        </button>
-      </div>
+      {hideSortBtn && (
+        <div className="sort">
+          <button className="sort-btn">
+            <TiArrowSortedUp
+              className="arrow-btn up"
+              onClick={() => changePostionUp(index)}
+            />
+          </button>
+          <button className="sort-btn">
+            <TiArrowSortedDown
+              className="arrow-btn down"
+              onClick={() => changePostionDown(index)}
+            />
+          </button>
+        </div>
+      )}
     </li>
   );
 };

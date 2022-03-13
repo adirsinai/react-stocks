@@ -51,6 +51,14 @@ h2 {
   padding-top: 15px;
 }
 
+.empty {
+  text-align: center;
+}
+
+.empty h2 {
+  color: black;
+}
+
 p {
   font-size: 26px;
   color: #8c9ea3;
@@ -90,14 +98,30 @@ header {
   justify-content: space-between;
 }
 
+.remove-btn {
+  margin-right: 15px;
+  color: #fff;
+  background: #bb2525;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+
 .sort {
   display: flex;
   flex-direction: column;
 }
 
+.sort-btn {
+  height: 16px;
+}
+
 .arrow-btn {
-  height: 30px;
-  width: 30px;
+  font-size: 22px;
   background: transparent;
   border: none;
   cursor: pointer;
