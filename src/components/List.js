@@ -5,6 +5,7 @@ import { useGlobalContext } from "../context";
 const List = () => {
   const { stocks, changePostionUp, changePostionDown, filterStocks } =
     useGlobalContext();
+  const [editView, setEditView] = useState(false);
 
   return (
     <ul>

@@ -7,6 +7,7 @@ const AppProvider = ({ children }) => {
   const [stocks, setStocks] = useState(data);
   const [filterStocks, setFilterStocks] = useState("");
   const [hideSortBtn,setHideSortBtn] = useState(true)
+   const [editView, setEditView] = useState(false);
 
   const changePostionUp = (stockIndex) => {
     let data = [...stocks];
@@ -44,7 +45,9 @@ setStocks(tempList);
         setFilterStocks,
         hideSortBtn,
         setHideSortBtn,
-        removeStock
+        removeStock,
+        editView,
+        setEditView,
       }}
     >
       {children}

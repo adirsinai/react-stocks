@@ -6,37 +6,39 @@ import { useGlobalContext } from "../context";
 import Filter from "./Filter";
 import Search from "./Search";
 import Refresh from "./Refresh";
-import Settings from "./Settings";
 
 const Header = () => {
-  const { hideSortBtn, setHideSortBtn } = useGlobalContext();
+  const { hideSortBtn, setHideSortBtn,editView, setEditView } =
+    useGlobalContext();
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
   const [openRefreshMenu, setOpenRefreshMenu] = useState(false);
   const [openFilterMenu, setOpenFilterMenu] = useState(false);
-  const [openSettingMenu, setOpenSettingMenu] = useState(false);
+
+ 
 
   const menuToggle = (currentMenuItem) => {
     if (currentMenuItem === "search") {
       setOpenSearchMenu(!openSearchMenu);
       setOpenRefreshMenu(false);
       setOpenFilterMenu(false);
-      setOpenSettingMenu(false);
+    
     }
     if (currentMenuItem === "refresh") {
       setOpenRefreshMenu(!openRefreshMenu);
       setOpenFilterMenu(false);
       setOpenSearchMenu(false);
-      setOpenSettingMenu(false);
+    
     }
     if (currentMenuItem === "filter") {
       setOpenFilterMenu(!openFilterMenu);
       setHideSortBtn(!hideSortBtn);
+      
       setOpenSearchMenu(false);
       setOpenRefreshMenu(false);
-      setOpenSettingMenu(false);
+    
     }
     if (currentMenuItem === "setting") {
-      setOpenSettingMenu(!openSettingMenu);
+      setEditView(!editView);
       setOpenFilterMenu(false);
       setOpenSearchMenu(false);
       setOpenRefreshMenu(false);
@@ -64,7 +66,6 @@ const Header = () => {
       {openSearchMenu && <Search />}
       {openRefreshMenu && <Refresh />}
       {openFilterMenu && <Filter />}
-      {openSettingMenu && <Settings />}
       <hr />
     </>
   );

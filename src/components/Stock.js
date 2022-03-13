@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 const Stock = (stock) => {
 
-  const { hideSortBtn, removeStock } = useGlobalContext();
+  const { hideSortBtn, removeStock, editView } = useGlobalContext();
   const {
     Symbol,
     Name,
@@ -38,16 +38,18 @@ const Stock = (stock) => {
   };
 
 
-
   return (
     <li>
       <p>
         {Symbol}({Name})
       </p>
       <div>
-        <button className="remove-btn" onClick={()=>removeStock(Symbol)}>
-          <FaTrash />
-        </button>
+        {editView && (
+          <button className="remove-btn" onClick={() => removeStock(Symbol)}>
+            <FaTrash />
+          </button>
+        )}
+
         <span>{change}</span>
         <button
           className="display-btn"
