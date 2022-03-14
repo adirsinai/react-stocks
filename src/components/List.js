@@ -3,10 +3,9 @@ import Stock from "../components/Stock";
 import { useGlobalContext } from "../context";
 
 const List = () => {
-  const { stocks, changePostionUp, changePostionDown, filterStocks } =
+  const { stocks, changePostionUp, changePostionDown, filters } =
     useGlobalContext();
-  const [editView, setEditView] = useState(false);
-
+const {filterdStocks} = filters
   return (
     <ul>
       {stocks.length === 0 && (
@@ -14,8 +13,8 @@ const List = () => {
           <h2>The list is empty</h2>
         </div>
       )}
-      {stocks
-        .filter((stock) => stock.Symbol.toLowerCase().includes(filterStocks))
+      {filterdStocks
+        .filter((stock) => stock.Symbol.toLowerCase().includes(filters.symbol))
         .map((stock, index) => {
           return (
             <Stock

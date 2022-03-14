@@ -55,6 +55,11 @@ h2 {
   text-align: center;
 }
 
+h5{
+  text-align: center;
+  color: black;
+}
+
 .empty h2 {
   color: black;
 }
@@ -142,16 +147,34 @@ li:first-child div:nth-child(3) .up {
   padding: 6px 20px;
 }
 
-.form-control {
-  width: 100%;
-  position: relative;
-  text-align: center;
+.form-content{
+  margin: 16px ;
+  padding: 5%;
+  border:1px solid #f0f4f7;
 }
 
-input {
-  border: 2px solid #43bf17;
-  margin-bottom: 6px;
-  padding: 5px 10px 5px 10px;
-  border-radius: 5px 5px;
-  outline: none;
+.form-control{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
 }
+
+.checkbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color:#005CC8
+}
+
+.searchTerm {
+  width: 100%;
+  border: 2px solid #005CC8;
+  padding: 10px;
+  height: 20px;
+  border-radius: 5px ;
+  outline: none;
+ 
+}
+

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { FaTrash } from "react-icons/fa";
+import {formatPrice} from '../utils/helpers'
 import { useGlobalContext } from "../context";
 const Stock = (stock) => {
 
@@ -16,7 +17,7 @@ const Stock = (stock) => {
     changePostionDown,
     index,
   } = stock;
-  const percentChange = parseFloat(PercentChange).toFixed(2);
+  const percentChange = formatPrice(parseFloat(PercentChange));
   const lastTradePriceOnly = parseFloat(LastTradePriceOnly).toFixed(2);
   const marketCap = parseFloat(MarketCap).toFixed(2);
   const change = parseFloat(Change).toFixed(2);
@@ -37,6 +38,12 @@ const Stock = (stock) => {
     }
   };
 
+
+  
+
+
+
+  
 
   return (
     <li>
@@ -60,7 +67,7 @@ const Stock = (stock) => {
           }
           onClick={btnDisplay}
         >
-          {(btnCurrentState === "PercentChange" && percentChange + "%") ||
+          {(btnCurrentState === "PercentChange" && percentChange + '%') ||
             (btnCurrentState === "LastTradePriceOnly" && lastTradePriceOnly) ||
             (btnCurrentState === "MarketCap" && marketCap + "B")}
         </button>
