@@ -5,7 +5,8 @@ import {formatPrice} from '../utils/helpers'
 import { useGlobalContext } from "../context";
 const Stock = (stock) => {
 
-  const { hideSortBtn, removeStock, editView } = useGlobalContext();
+  const { hideSortBtn, removeStock, editView, filters } = useGlobalContext();
+
   const {
     Symbol,
     Name,
@@ -39,11 +40,6 @@ const Stock = (stock) => {
   };
 
 
-  
-
-
-
-  
 
   return (
     <li>

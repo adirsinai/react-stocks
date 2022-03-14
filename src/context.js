@@ -94,16 +94,16 @@ const AppProvider = ({ children }) => {
   };
 
   const changePostionUp = (stockIndex) => {
-    let data = [...stocks];
+    let data = [...filters.filterdStocks];
     let temp = data[stockIndex - 1];
     data[stockIndex - 1] = data[stockIndex];
     data[stockIndex] = temp;
 
-    setStocks(data);
+    setFilters({ ...filters, filterdStocks: data });
   };
 
   const changePostionDown = (stockIndex) => {
-    let data = [...stocks];
+    let data = [...filters.filterdStocks];
     if (stockIndex === data.length - 1) {
       stockIndex = 1;
     }
@@ -111,7 +111,7 @@ const AppProvider = ({ children }) => {
     data[stockIndex + 1] = data[stockIndex];
     data[stockIndex] = temp;
 
-    setStocks(data);
+    setFilters({ ...filters, filterdStocks: data });
   };
 
   const removeStock = (symbol) => {
