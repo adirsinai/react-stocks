@@ -3,7 +3,7 @@ import { useGlobalContext } from "../context";
 import { formatPrice } from "../utils/helpers";
 
 const Filter = () => {
-  const { filters, setFilters, updateFilters, searchHandle } =
+  const { filters, updateFilters, searchHandle } =
     useGlobalContext();
 
   return (

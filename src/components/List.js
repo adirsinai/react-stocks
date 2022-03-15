@@ -5,26 +5,26 @@ import { useGlobalContext } from "../context";
 const List = () => {
   const { changePostionUp, changePostionDown, filters } =
     useGlobalContext();
-const { filterdStocks } = filters;
+const { filterdStocks,msg } = filters;
 
   return (
     <ul>
       {filterdStocks.length === 0 && (
         <div className="empty">
-          <h2>The list is empty</h2>
+          <h2>{msg}</h2>
         </div>
       )}
       {filterdStocks.map((stock, index) => {
-          return (
-            <Stock
-              key={stock.Symbol}
-              {...stock}
-              changePostionUp={changePostionUp}
-              changePostionDown={changePostionDown}
-              index={index}
-            />
-          );
-        })}
+        return (
+          <Stock
+            key={index}
+            {...stock}
+            changePostionUp={changePostionUp}
+            changePostionDown={changePostionDown}
+            index={index}
+          />
+        );
+      })}
     </ul>
   );
 };

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { formatPrice } from "./utils/helpers";
 import { data } from "./utils/StockData";
+import { api } from "./utils/ApiDemoList";
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [stocks, setStocks] = useState(data);
+  const [myList, setMyList] = useState(data);
+  const [apiList, setApiList] = useState(api);
 
   const [menuState, setMenuState] = useState({
     search: false,
@@ -13,6 +15,7 @@ const AppProvider = ({ children }) => {
     filter: false,
     setting: false,
     sortBtn: true,
+    myList:true
   });
 
   const { search, refresh, filter, setting, sortBtn } = menuState;
@@ -20,10 +23,11 @@ const AppProvider = ({ children }) => {
   const [filters, setFilters] = useState({
     searchTerm: "",
     trend: "all",
-    filterdStocks: stocks,
+    filterdStocks: myList,
     min_percentage: 0,
     max_percentage: 0,
     percentage: 0,
+    msg:''
   });
 
   useEffect(() => {
@@ -45,16 +49,6 @@ const AppProvider = ({ children }) => {
     });
   }, []);
 
-  const searchHandle = (handleTerm) => {
-    let tempSearchTrem = filters.filterdStocks.filter((stock) =>
-      stock.Symbol.toLowerCase().includes(handleTerm)
-    );
-
-    setFilters({ ...filters, filterdStocks: tempSearchTrem });
-    if (handleTerm === "") {
-      setFilters({ ...filters, filterdStocks: stocks });
-    }
-  };
 
   const menuToggle = (currentMenuItem) => {
     if (currentMenuItem === "search") {
@@ -65,6 +59,7 @@ const AppProvider = ({ children }) => {
         filter: false,
         setting: false,
         sortBtn: true,
+        myList: !menuState.myList,
       });
     }
     if (currentMenuItem === "refresh") {
@@ -75,6 +70,7 @@ const AppProvider = ({ children }) => {
         filter: false,
         setting: false,
         sortBtn: true,
+        myList: true,
       });
     }
     if (currentMenuItem === "filter") {
@@ -85,6 +81,7 @@ const AppProvider = ({ children }) => {
         refresh: false,
         setting: false,
         sortBtn: !sortBtn,
+        myList: true,
       });
     }
     if (currentMenuItem === "setting") {
@@ -95,19 +92,36 @@ const AppProvider = ({ children }) => {
         refresh: false,
         filter: false,
         sortBtn: true,
+        myList: true,
       });
     }
   };
+
+    const searchHandle = (handleTerm) => {
+      let tempSearchTrem = filters.filterdStocks.filter((stock) =>
+        stock.Symbol.toLowerCase().includes(handleTerm)
+      );
+
+      setFilters({ ...filters, filterdStocks: tempSearchTrem });
+      if (handleTerm === "") {
+        setFilters({
+          ...filters,
+          filterdStocks: myList,
+          msg: "Not found",
+        });
+      }
+    };
+
 
   const updateFilters = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     if (name === "all") {
-      setFilters({ ...filters, trend: name, filterdStocks: stocks });
+      setFilters({ ...filters, trend: name, filterdStocks: myList });
     }
 
     if (name === "losing") {
-      const losing = stocks.filter(
+      const losing = myList.filter(
         (p) => formatPrice(parseFloat(p.PercentChange)) <= 0
       );
 
@@ -115,7 +129,7 @@ const AppProvider = ({ children }) => {
     }
 
     if (name === "gaining") {
-      const gaining = stocks.filter(
+      const gaining = myList.filter(
         (p) => formatPrice(parseFloat(p.PercentChange)) >= 0
       );
 
@@ -125,7 +139,7 @@ const AppProvider = ({ children }) => {
     if (name === "percentage") {
       value = Number(value);
 
-      const tempStocks = stocks.filter(
+      const tempStocks = myList.filter(
         (p) => formatPrice(parseFloat(p.PercentChange)) <= value
       );
 
@@ -158,13 +172,12 @@ const AppProvider = ({ children }) => {
     const tempList = filters.filterdStocks.filter(
       (stock) => stock.Symbol !== symbol
     );
-    setFilters({ ...filters, filterdStocks: tempList });
+    setFilters({ ...filters, filterdStocks: tempList ,msg: "List is Empty", });
   };
 
   return (
     <AppContext.Provider
       value={{
-        stocks,
         menuState,
         changePostionUp,
         changePostionDown,
@@ -174,6 +187,7 @@ const AppProvider = ({ children }) => {
         menuToggle,
         updateFilters,
         searchHandle,
+        apiList,
       }}
     >
       {children}
