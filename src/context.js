@@ -18,7 +18,7 @@ const AppProvider = ({ children }) => {
   const { search, refresh, filter, setting, sortBtn } = menuState;
 
   const [filters, setFilters] = useState({
-    symbol: "",
+    searchTerm: "",
     trend: "all",
     filterdStocks: stocks,
     min_percentage: 0,
@@ -27,12 +27,12 @@ const AppProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    let maxPercentage = stocks.map((p) =>
+    let maxPercentage = filters.filterdStocks.map((p) =>
       formatPrice(parseFloat(p.PercentChange))
     );
     maxPercentage = Math.max(...maxPercentage);
 
-    let minPercentage = stocks.map((p) =>
+    let minPercentage = filters.filterdStocks.map((p) =>
       formatPrice(parseFloat(p.PercentChange))
     );
     minPercentage = Math.min(...minPercentage);
@@ -43,7 +43,18 @@ const AppProvider = ({ children }) => {
       max_percentage: maxPercentage,
       percentage: maxPercentage,
     });
-  }, [stocks]);
+  }, []);
+
+  const searchHandle = (handleTerm) => {
+    let tempSearchTrem = filters.filterdStocks.filter((stock) =>
+      stock.Symbol.toLowerCase().includes(handleTerm)
+    );
+
+    setFilters({ ...filters, filterdStocks: tempSearchTrem });
+    if (handleTerm === "") {
+      setFilters({ ...filters, filterdStocks: stocks });
+    }
+  };
 
   const menuToggle = (currentMenuItem) => {
     if (currentMenuItem === "search") {
@@ -113,7 +124,12 @@ const AppProvider = ({ children }) => {
 
     if (name === "percentage") {
       value = Number(value);
-      setFilters({ ...filters, [name]: value });
+
+      const tempStocks = stocks.filter(
+        (p) => formatPrice(parseFloat(p.PercentChange)) <= value
+      );
+
+      setFilters({ ...filters, [name]: value, filterdStocks: tempStocks });
     }
   };
 
@@ -157,6 +173,7 @@ const AppProvider = ({ children }) => {
         removeStock,
         menuToggle,
         updateFilters,
+        searchHandle,
       }}
     >
       {children}

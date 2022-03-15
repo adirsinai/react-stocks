@@ -3,7 +3,8 @@ import { useGlobalContext } from "../context";
 import { formatPrice } from "../utils/helpers";
 
 const Filter = () => {
-  const { filters, setFilters, updateFilters } = useGlobalContext();
+  const { filters, setFilters, updateFilters, searchHandle } =
+    useGlobalContext();
 
   return (
     <div className="form-content">
@@ -13,7 +14,7 @@ const Filter = () => {
             type="text"
             className="searchTerm"
             placeholder="Filterd Stock..."
-            onChange={(e) => setFilters({ ...filters, symbol: e.target.value })}
+            onChange={(e) => searchHandle(e.target.value)}
           />
         </div>
         <div className="checkbox">
@@ -43,8 +44,7 @@ const Filter = () => {
           <h5 className="percentView">
             {formatPrice(parseFloat(filters.percentage))}%
           </h5>
-          <input
-            className="searchTerm"
+          <input         
             type="range"
             name="percentage"
             onChange={updateFilters}
