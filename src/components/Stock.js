@@ -5,8 +5,8 @@ import {formatPrice} from '../utils/helpers'
 import { useGlobalContext } from "../context";
 const Stock = (stock) => {
 
-  const { hideSortBtn, removeStock, menuState } = useGlobalContext();
-const {setting } = menuState;
+  const {removeStock, menuState } = useGlobalContext();
+const { setting, sortBtn } = menuState;
   const {
     Symbol,
     Name,
@@ -68,7 +68,7 @@ const {setting } = menuState;
             (btnCurrentState === "MarketCap" && marketCap + "B")}
         </button>
       </div>
-      {hideSortBtn && (
+      {sortBtn && (
         <div className="sort">
           <button className="sort-btn">
             <TiArrowSortedUp

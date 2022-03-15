@@ -7,14 +7,15 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [stocks, setStocks] = useState(data);
 
-  const [menuState,setMenuState] = useState({
-    search:false,
-    refresh:false,
-    filter:false,
-    setting:false
-  })
+  const [menuState, setMenuState] = useState({
+    search: false,
+    refresh: false,
+    filter: false,
+    setting: false,
+    sortBtn: true,
+  });
 
-  const { search, refresh, filter, setting } = menuState;
+  const { search, refresh, filter, setting, sortBtn } = menuState;
 
   const [filters, setFilters] = useState({
     symbol: "",
@@ -52,6 +53,7 @@ const AppProvider = ({ children }) => {
         refresh: false,
         filter: false,
         setting: false,
+        sortBtn: true,
       });
     }
     if (currentMenuItem === "refresh") {
@@ -61,16 +63,18 @@ const AppProvider = ({ children }) => {
         search: false,
         filter: false,
         setting: false,
+        sortBtn: true,
       });
     }
     if (currentMenuItem === "filter") {
-     setMenuState({
-       ...menuState,
-       [currentMenuItem]: !filter,
-       search: false,
-       refresh: false,
-       setting:false,
-     });
+      setMenuState({
+        ...menuState,
+        [currentMenuItem]: !filter,
+        search: false,
+        refresh: false,
+        setting: false,
+        sortBtn: !sortBtn,
+      });
     }
     if (currentMenuItem === "setting") {
       setMenuState({
@@ -79,9 +83,9 @@ const AppProvider = ({ children }) => {
         search: false,
         refresh: false,
         filter: false,
+        sortBtn: true,
       });
     }
-    
   };
 
   const updateFilters = (e) => {
@@ -138,7 +142,7 @@ const AppProvider = ({ children }) => {
     const tempList = filters.filterdStocks.filter(
       (stock) => stock.Symbol !== symbol
     );
-  setFilters({ ...filters, filterdStocks: tempList });
+    setFilters({ ...filters, filterdStocks: tempList });
   };
 
   return (
