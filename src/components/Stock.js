@@ -5,8 +5,8 @@ import {formatPrice} from '../utils/helpers'
 import { useGlobalContext } from "../context";
 const Stock = (stock) => {
 
-  const { hideSortBtn, removeStock, editView, filters } = useGlobalContext();
-
+  const { hideSortBtn, removeStock, menuState } = useGlobalContext();
+const {setting } = menuState;
   const {
     Symbol,
     Name,
@@ -47,7 +47,7 @@ const Stock = (stock) => {
         {Symbol}({Name})
       </p>
       <div>
-        {editView && (
+        {setting && (
           <button className="remove-btn" onClick={() => removeStock(Symbol)}>
             <FaTrash />
           </button>
@@ -63,7 +63,7 @@ const Stock = (stock) => {
           }
           onClick={btnDisplay}
         >
-          {(btnCurrentState === "PercentChange" && percentChange + '%') ||
+          {(btnCurrentState === "PercentChange" && percentChange + "%") ||
             (btnCurrentState === "LastTradePriceOnly" && lastTradePriceOnly) ||
             (btnCurrentState === "MarketCap" && marketCap + "B")}
         </button>

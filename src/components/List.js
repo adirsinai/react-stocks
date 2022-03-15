@@ -3,12 +3,12 @@ import Stock from "../components/Stock";
 import { useGlobalContext } from "../context";
 
 const List = () => {
-  const { stocks, changePostionUp, changePostionDown, filters } =
+  const { changePostionUp, changePostionDown, filters } =
     useGlobalContext();
 const {filterdStocks} = filters
   return (
     <ul>
-      {stocks.length === 0 && (
+      {filterdStocks.length === 0 && (
         <div className="empty">
           <h2>The list is empty</h2>
         </div>

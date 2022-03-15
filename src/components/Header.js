@@ -8,8 +8,10 @@ import Search from "./Search";
 import Refresh from "./Refresh";
 
 const Header = () => {
-  const { menuToggle, openSearchMenu, openRefreshMenu, openFilterMenu } =
+  const { menuToggle,menuState } =
     useGlobalContext();
+
+const {search,refresh,filter} = menuState
 
   return (
     <>
@@ -28,9 +30,9 @@ const Header = () => {
           <FiSettings className="icon" onClick={() => menuToggle("setting")} />
         </div>
       </header>
-      {openSearchMenu && <Search />}
-      {openRefreshMenu && <Refresh />}
-      {openFilterMenu && <Filter />}
+      {search && <Search />}
+      {refresh && <Refresh />}
+      {filter && <Filter />}
       <hr />
     </>
   );

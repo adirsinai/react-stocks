@@ -6,11 +6,16 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [stocks, setStocks] = useState(data);
-  const [hideSortBtn, setHideSortBtn] = useState(true);
-  const [editView, setEditView] = useState(false);
-  const [openSearchMenu, setOpenSearchMenu] = useState(false);
-  const [openRefreshMenu, setOpenRefreshMenu] = useState(false);
-  const [openFilterMenu, setOpenFilterMenu] = useState(false);
+
+  const [menuState,setMenuState] = useState({
+    search:false,
+    refresh:false,
+    filter:false,
+    setting:false
+  })
+
+  const { search, refresh, filter, setting } = menuState;
+
   const [filters, setFilters] = useState({
     symbol: "",
     trend: "all",
@@ -41,27 +46,42 @@ const AppProvider = ({ children }) => {
 
   const menuToggle = (currentMenuItem) => {
     if (currentMenuItem === "search") {
-      setOpenSearchMenu(!openSearchMenu);
-      setOpenRefreshMenu(false);
-      setOpenFilterMenu(false);
+      setMenuState({
+        ...menuState,
+        [currentMenuItem]: !search,
+        refresh: false,
+        filter: false,
+        setting: false,
+      });
     }
     if (currentMenuItem === "refresh") {
-      setOpenRefreshMenu(!openRefreshMenu);
-      setOpenFilterMenu(false);
-      setOpenSearchMenu(false);
+      setMenuState({
+        ...menuState,
+        [currentMenuItem]: !refresh,
+        search: false,
+        filter: false,
+        setting: false,
+      });
     }
     if (currentMenuItem === "filter") {
-      setOpenFilterMenu(!openFilterMenu);
-      setHideSortBtn(!hideSortBtn);
-      setOpenSearchMenu(false);
-      setOpenRefreshMenu(false);
+     setMenuState({
+       ...menuState,
+       [currentMenuItem]: !filter,
+       search: false,
+       refresh: false,
+       setting:false,
+     });
     }
     if (currentMenuItem === "setting") {
-      setEditView(!editView);
-      setOpenFilterMenu(false);
-      setOpenSearchMenu(false);
-      setOpenRefreshMenu(false);
+      setMenuState({
+        ...menuState,
+        [currentMenuItem]: !setting,
+        search: false,
+        refresh: false,
+        filter: false,
+      });
     }
+    
   };
 
   const updateFilters = (e) => {
@@ -115,27 +135,23 @@ const AppProvider = ({ children }) => {
   };
 
   const removeStock = (symbol) => {
-    const tempList = stocks.filter((stock) => stock.Symbol !== symbol);
-    setStocks(tempList);
+    const tempList = filters.filterdStocks.filter(
+      (stock) => stock.Symbol !== symbol
+    );
+  setFilters({ ...filters, filterdStocks: tempList });
   };
 
   return (
     <AppContext.Provider
       value={{
         stocks,
+        menuState,
         changePostionUp,
         changePostionDown,
         filters,
         setFilters,
-        hideSortBtn,
-        setHideSortBtn,
         removeStock,
-        editView,
-        setEditView,
         menuToggle,
-        openSearchMenu,
-        openRefreshMenu,
-        openFilterMenu,
         updateFilters,
       }}
     >
