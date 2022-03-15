@@ -55,7 +55,7 @@ h2 {
   text-align: center;
 }
 
-h5{
+h5 {
   text-align: center;
   color: black;
 }
@@ -147,34 +147,38 @@ li:first-child div:nth-child(3) .up {
   padding: 6px 20px;
 }
 
-.form-content{
-  margin: 16px ;
+.form-content {
+  margin: 16px;
   padding: 5%;
-  border:1px solid #f0f4f7;
+  border: 1px solid #f0f4f7;
 }
 
-.form-control{
+.form-control {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 35px;
 }
 
-.checkbox{
+.checkbox {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  color:#005CC8
+  color: #005cc8;
 }
 
 .searchTerm {
-  width: 100%;
-  border: 2px solid #005CC8;
+  border: 2px solid #005cc8;
   padding: 10px;
   height: 20px;
-  border-radius: 5px ;
+  border-radius: 5px;
   outline: none;
- 
 }
 
+.cancel-btn {
+  background-color: red;
+  color: #fff;
+  border-radius: 3px;
+  padding: 5px;
+}
