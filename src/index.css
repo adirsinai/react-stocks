@@ -19,15 +19,14 @@ body {
   background-color: #f0f4f7;
 }
 
-.loading {
+/* .loading {
   text-align: center;
   margin-top: 25%;
-}
+} */
 
 section {
-  height: 550px;
   width: 50%;
-  margin: 10% auto;
+  margin: 5% auto;
   background-color: #fff;
   border-radius: 15px;
 }
@@ -53,6 +52,7 @@ h2 {
 
 .empty {
   text-align: center;
+  padding-bottom: 10px;
 }
 
 h5 {
@@ -176,13 +176,12 @@ li:first-child div:nth-child(3) .up {
   outline: none;
 }
 
-.add-stock-btn{
-font-size: 24px;
-color: #43bf17;
-background-color: #cacaca33;
-display: flex;
-padding: 2px;
-border: 1px solid black;
-border-radius: 4px;
+.add-stock-btn {
+  font-size: 24px;
+  color: #43bf17;
+  background-color: #cacaca33;
+  display: flex;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 4px;
 }
-

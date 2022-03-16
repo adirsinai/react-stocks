@@ -6,8 +6,10 @@ import { api } from "./utils/ApiDemoList";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [myList, setMyList] = useState(data);
+  const [stockSymbol, setStockSymbol] = useState(["WIX", "MSFT", "YHOO"]);
+  const myList = data.filter((stock) => stockSymbol.includes(stock.Symbol));
   const [apiList, setApiList] = useState(api);
+
 
   const [menuState, setMenuState] = useState({
     search: false,
@@ -15,7 +17,7 @@ const AppProvider = ({ children }) => {
     filter: false,
     setting: false,
     sortBtn: true,
-    myList:true
+    myList: true,
   });
 
   const { search, refresh, filter, setting, sortBtn } = menuState;
@@ -23,12 +25,14 @@ const AppProvider = ({ children }) => {
   const [filters, setFilters] = useState({
     searchTerm: "",
     trend: "all",
-    filterdStocks: myList,
+    filterdStocks: myList ,
     min_percentage: 0,
     max_percentage: 0,
     percentage: 0,
-    msg:''
+    msg: "",
   });
+
+
 
   useEffect(() => {
     let maxPercentage = filters.filterdStocks.map((p) =>
@@ -46,9 +50,9 @@ const AppProvider = ({ children }) => {
       min_percentage: minPercentage,
       max_percentage: maxPercentage,
       percentage: maxPercentage,
+     
     });
   }, []);
-
 
   const menuToggle = (currentMenuItem) => {
     if (currentMenuItem === "search") {
@@ -97,21 +101,20 @@ const AppProvider = ({ children }) => {
     }
   };
 
-    const searchHandle = (handleTerm) => {
-      let tempSearchTrem = filters.filterdStocks.filter((stock) =>
-        stock.Symbol.toLowerCase().includes(handleTerm)
-      );
+  const searchHandle = (handleTerm) => {
+    let tempSearchTrem = filters.filterdStocks.filter((stock) =>
+      stock.Symbol.toLowerCase().includes(handleTerm)
+    );
 
-      setFilters({ ...filters, filterdStocks: tempSearchTrem });
-      if (handleTerm === "") {
-        setFilters({
-          ...filters,
-          filterdStocks: myList,
-          msg: "Not found",
-        });
-      }
-    };
-
+    setFilters({ ...filters, filterdStocks: tempSearchTrem });
+    if (handleTerm === "") {
+      setFilters({
+        ...filters,
+        filterdStocks: myList,
+        msg: "Not found",
+      });
+    }
+  };
 
   const updateFilters = (e) => {
     let name = e.target.name;
@@ -172,7 +175,7 @@ const AppProvider = ({ children }) => {
     const tempList = filters.filterdStocks.filter(
       (stock) => stock.Symbol !== symbol
     );
-    setFilters({ ...filters, filterdStocks: tempList ,msg: "List is Empty", });
+    setFilters({ ...filters, filterdStocks: tempList, msg: "List is Empty" });
   };
 
   return (
