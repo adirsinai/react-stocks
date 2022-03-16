@@ -176,9 +176,13 @@ li:first-child div:nth-child(3) .up {
   outline: none;
 }
 
-.cancel-btn {
-  background-color: red;
-  color: #fff;
-  border-radius: 3px;
-  padding: 5px;
+.add-stock-btn{
+font-size: 24px;
+color: #43bf17;
+background-color: #cacaca33;
+display: flex;
+padding: 2px;
+border: 1px solid black;
+border-radius: 4px;
 }
+
