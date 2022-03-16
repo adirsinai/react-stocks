@@ -23,7 +23,6 @@ const AppProvider = ({ children }) => {
   const { search, refresh, filter, setting, sortBtn } = menuState;
 
   const [filters, setFilters] = useState({
-    searchTerm: "",
     trend: "all",
     filterdStocks: myList ,
     min_percentage: 0,
@@ -35,6 +34,8 @@ const AppProvider = ({ children }) => {
 
 
   useEffect(() => {
+
+
     let maxPercentage = filters.filterdStocks.map((p) =>
       formatPrice(parseFloat(p.PercentChange))
     );
@@ -111,9 +112,10 @@ const AppProvider = ({ children }) => {
       setFilters({
         ...filters,
         filterdStocks: myList,
-        msg: "Not found",
       });
     }
+   
+
   };
 
   const updateFilters = (e) => {
