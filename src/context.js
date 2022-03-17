@@ -68,7 +68,11 @@ setFilters({...filters,query:query})
 
   useEffect(() => {
     if(filters.query === ''){
-      setFilters({ ...filters, searchsugget:[], msg: "plesh type symbol..." });
+      setFilters({
+        ...filters,
+        searchsugget: [],
+        msg: "please search symbol name",
+      });
     }else{
 
       fetchData(filters.query);

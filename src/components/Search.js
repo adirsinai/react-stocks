@@ -8,7 +8,7 @@ const { query } = filters;
 
   return (
     <div className="form-content">
-      <form className="form-control" onSubmit={(e) => e.preventDefault()}>
+      <form className="form-control">
         <input
           type="text"
           className="searchTerm"
