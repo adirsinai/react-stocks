@@ -1,14 +1,16 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { formatPrice } from "./utils/helpers";
 import { data } from "./utils/StockData";
-import { api } from "./utils/ApiDemoList";
+
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [stockSymbol, setStockSymbol] = useState(["WIX", "MSFT", "YHOO"]);
   const myList = data.filter((stock) => stockSymbol.includes(stock.Symbol));
-  const [apiList, setApiList] = useState(api);
+  const apiEndPoint = "https://yh-finance.p.rapidapi.com/auto-complete";
+
 
 
   const [menuState, setMenuState] = useState({
@@ -23,18 +25,58 @@ const AppProvider = ({ children }) => {
   const { search, refresh, filter, setting, sortBtn } = menuState;
 
   const [filters, setFilters] = useState({
+    query: "",
+    searchsugget: [],
     trend: "all",
-    filterdStocks: myList ,
+    filterdStocks: myList,
     min_percentage: 0,
     max_percentage: 0,
     percentage: 0,
-    msg: "",
+    msg: "please search symbol name",
   });
 
+  const handleSuggestSearch =(query)=>{
+setFilters({...filters,query:query})
+  }
+
+  
+
+
+
+  const fetchData =  (query)=>{
+  const options = {
+    method: "GET",
+    url: apiEndPoint,
+    params: { q: query, region: "US" },
+    headers: {
+      "x-rapidapi-host": "yh-finance.p.rapidapi.com",
+      "x-rapidapi-key": "b8Q4dcfW04mshSvdlOzKv0nOJYp9p11uWnPjsnt8nUDxat7ehb",
+    },
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {
+    const suggestlist =  response.data.quotes
+    console.log(suggestlist);
+    setFilters({...filters,searchsugget:suggestlist})
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  }
+
+  useEffect(() => {
+    if(filters.query === ''){
+      setFilters({ ...filters, searchsugget:[], msg: "plesh type symbol..." });
+    }else{
+
+      fetchData(filters.query);
+    }
+  }, [filters.query]);
 
 
   useEffect(() => {
-
 
     let maxPercentage = filters.filterdStocks.map((p) =>
       formatPrice(parseFloat(p.PercentChange))
@@ -192,7 +234,7 @@ const AppProvider = ({ children }) => {
         menuToggle,
         updateFilters,
         searchHandle,
-        apiList,
+        handleSuggestSearch,
       }}
     >
       {children}
