@@ -4,12 +4,12 @@ import { useGlobalContext } from "../context";
 
 const SuggestList = () => {
   const { filters } = useGlobalContext();
-  const { searchsugget, query,msg } = filters;
+  const { searchsugget,msg } = filters;
 
   
   return (
     <ul>
-      {searchsugget.length === 0 && <p>{msg}</p>}
+      {searchsugget.length === 0 && <p className="empty">{msg}</p>}
       {searchsugget.map((stock, index) => {
         return (
           <li key={index}>

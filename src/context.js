@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { formatPrice } from "./utils/helpers";
 import { data } from "./utils/StockData";
@@ -9,7 +9,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [stockSymbol, setStockSymbol] = useState(["WIX", "MSFT", "YHOO"]);
   const myList = data.filter((stock) => stockSymbol.includes(stock.Symbol));
-  const apiEndPoint = "https://yh-finance.p.rapidapi.com/auto-complete";
+
 
 
 
@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
   const { search, refresh, filter, setting, sortBtn } = menuState;
 
   const [filters, setFilters] = useState({
-    query: "",
+    query: "wix",
     searchsugget: [],
     trend: "all",
     filterdStocks: myList,
@@ -35,53 +35,15 @@ const AppProvider = ({ children }) => {
     msg: "please search symbol name",
   });
 
-  const handleSuggestSearch =(query)=>{
-setFilters({...filters,query:query})
-  }
-
-  
-
-
-
-  const fetchData =  (query)=>{
-  const options = {
-    method: "GET",
-    url: apiEndPoint,
-    params: { q: query, region: "US" },
-    headers: {
-      "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-      "x-rapidapi-key": "b8Q4dcfW04mshSvdlOzKv0nOJYp9p11uWnPjsnt8nUDxat7ehb",
-    },
-  };
-
-  axios
-    .request(options)
-    .then(function (response) {
-    const suggestlist =  response.data.quotes
-    console.log(suggestlist);
-    setFilters({...filters,searchsugget:suggestlist})
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-  }
-
-  useEffect(() => {
-    if(filters.query === ''){
-      setFilters({
-        ...filters,
-        searchsugget: [],
-        msg: "please search symbol name",
-      });
-    }else{
-
-      fetchData(filters.query);
+  const handleSuggestSearch =(event)=>{
+    if(event.keyCode === 13){
+      setFilters({ ...filters, query: event.target.value, msg:'' });
     }
-  }, [filters.query]);
+  }
+
 
 
   useEffect(() => {
-
     let maxPercentage = filters.filterdStocks.map((p) =>
       formatPrice(parseFloat(p.PercentChange))
     );
@@ -97,7 +59,6 @@ setFilters({...filters,query:query})
       min_percentage: minPercentage,
       max_percentage: maxPercentage,
       percentage: maxPercentage,
-     
     });
   }, []);
 
@@ -239,6 +200,7 @@ setFilters({...filters,query:query})
         updateFilters,
         searchHandle,
         handleSuggestSearch,
+
       }}
     >
       {children}

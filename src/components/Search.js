@@ -7,13 +7,15 @@ const Search = () => {
 const { query } = filters;
 
   return (
-    <div className="form-content">
-      <form className="form-control">
+    <div className="form-content" >
+      <form className="form-control" onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           className="searchTerm"
           placeholder="Search stock..."
-          onChange={(e) => handleSuggestSearch(e.target.value)}
+          onKeyDown={(e) => handleSuggestSearch(e)}
+          // value={query}
+          // onChange={(e) => handleSuggestSearch(e.target.value)}
         />
       </form>
     </div>
