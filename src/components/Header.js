@@ -5,7 +5,6 @@ import { FiSettings } from "react-icons/fi";
 import { useGlobalContext } from "../context";
 import Filter from "./Filter";
 import Search from "./Search";
-import Refresh from "./Refresh";
 
 const Header = () => {
   const { menuToggle,menuState } =
@@ -31,7 +30,6 @@ const {search,refresh,filter} = menuState
         </div>
       </header>
       {search && <Search />}
-      {refresh && <Refresh />}
       {filter && <Filter />}
       <hr />
     </>

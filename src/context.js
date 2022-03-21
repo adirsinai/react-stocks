@@ -124,15 +124,7 @@ const AppProvider = ({ children }) => {
       });
     }
     if (currentMenuItem === "refresh") {
-      setMenuState({
-        ...menuState,
-        [currentMenuItem]: !refresh,
-        search: false,
-        filter: false,
-        setting: false,
-        sortBtn: true,
-        myList: true,
-      });
+      fetchData(rootUrl, stockSymbol.join(","));
     }
     if (currentMenuItem === "filter") {
       setMenuState({
@@ -242,6 +234,7 @@ const AppProvider = ({ children }) => {
 
   const addNewStock = (symbol)=>{
 stockSymbol.push(symbol);
+alert("Your stock is added ,close search panel to see your list!");
 fetchData(rootUrl, stockSymbol.join(","));
   }
 
