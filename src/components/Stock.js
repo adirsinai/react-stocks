@@ -8,22 +8,25 @@ const Stock = (stock) => {
   const {removeStock, menuState } = useGlobalContext();
 const { setting, sortBtn } = menuState;
   const {
-    Symbol,
-    Name,
-    Change,
-    PercentChange,
-    LastTradePriceOnly,
-    MarketCap,
+    symbol,
+    shortName,
+    regularMarketChange,
+    regularMarketChangePercent,
+    regularMarketPreviousClose,
+    marketCap,
     changePostionUp,
     changePostionDown,
     index,
   } = stock;
-  const percentChange = formatPrice(parseFloat(PercentChange));
-  const lastTradePriceOnly = parseFloat(LastTradePriceOnly).toFixed(2);
-  const marketCap = parseFloat(MarketCap).toFixed(2);
-  const change = parseFloat(Change).toFixed(2);
+  const percentChange = formatPrice(parseFloat(regularMarketChangePercent).toFixed(2));
+  const lastTradePriceOnly = parseFloat(regularMarketPreviousClose).toFixed(2);
+  ;
+  const marketcapToString = String(marketCap).slice(0,2);
+  const marketcp = Number(marketcapToString);
+  const change = parseFloat(regularMarketChange).toFixed(2);
   const [btnCurrentState, setBtnCurrentState] = useState("PercentChange");
   const [tempStateBtn, setTempStateBtn] = useState(1);
+
 
   const btnDisplay = () => {
     const temp = (tempStateBtn + 1) % 3;
@@ -44,11 +47,11 @@ const { setting, sortBtn } = menuState;
   return (
     <li>
       <p>
-        {Symbol}({Name})
+        {symbol}({shortName})
       </p>
       <div>
         {setting && (
-          <button className="remove-btn" onClick={() => removeStock(Symbol)}>
+          <button className="remove-btn" onClick={() => removeStock(symbol)}>
             <FaTrash />
           </button>
         )}
@@ -65,7 +68,7 @@ const { setting, sortBtn } = menuState;
         >
           {(btnCurrentState === "PercentChange" && percentChange + "%") ||
             (btnCurrentState === "LastTradePriceOnly" && lastTradePriceOnly) ||
-            (btnCurrentState === "MarketCap" && marketCap + "B")}
+            (btnCurrentState === "MarketCap" && marketcp + "B")}
         </button>
       </div>
       {sortBtn && (

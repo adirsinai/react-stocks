@@ -3,18 +3,18 @@ import Stock from "../components/Stock";
 import { useGlobalContext } from "../context";
 
 const List = () => {
-  const { changePostionUp, changePostionDown, filters } =
+  const { changePostionUp, changePostionDown, filters,myList } =
     useGlobalContext();
 const { filterdStocks,msg } = filters;
 
   return (
     <ul>
-      {filterdStocks.length === 0 && (
+      {myList.length === 0 && (
         <div className="empty">
           <h2>{msg}</h2>
         </div>
       )}
-      {filterdStocks.map((stock, index) => {
+      {myList.map((stock, index) => {
         return (
           <Stock
             key={index}
