@@ -7,7 +7,8 @@ import { data } from "./utils/StockData";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const stockSymbol  = ["WIX", "MSFT"];
+  const [stockSymbol,setStockSymbol]  = useState(["WIX", "MSFT"]);
+  const [isLoading,setIsLoading] = useState(false)
   const [myList, setMyList] = useState([]);
   const [ifFetch,setIffetch] = useState(false)
   const rootUrl = 'https://yh-finance.p.rapidapi.com/market/v2/get-quotes';
@@ -44,6 +45,7 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchSearchSymbols = (searchUrl,query) => {
+    setIsLoading(true);
     const options = {
       method: "GET",
       url: searchUrl,
@@ -58,13 +60,16 @@ const AppProvider = ({ children }) => {
       .then(function (response) {
         const { quotes } = response.data;
         setFilters({ ...filters, searchsugget: quotes });
+        setIsLoading(false);
       })
       .catch(function (error) {
+        setIsLoading(false);
         console.error(error);
       });
   };
 
   const fetchData = (rootUrl, stockSymbol) => {
+    setIsLoading(true)
     const options = {
       method: "GET",
       url: rootUrl,
@@ -80,8 +85,10 @@ const AppProvider = ({ children }) => {
         const { quoteResponse } = response.data;
         setMyList(quoteResponse.result);
         setIffetch(true);
+        setIsLoading(false);
       })
       .catch(function (error) {
+        setIsLoading(false)
         console.error(error);
       });
   };
@@ -108,7 +115,6 @@ const AppProvider = ({ children }) => {
       max_percentage: maxPercentage,
       percentage: maxPercentage,
     });
-    console.log("boom");
   }, [ifFetch]);
 
   const menuToggle = (currentMenuItem) => {
@@ -233,15 +239,15 @@ const AppProvider = ({ children }) => {
   };
 
   const addNewStock = (symbol)=>{
-stockSymbol.push(symbol);
-alert("Your stock is added ,close search panel to see your list!");
-fetchData(rootUrl, stockSymbol.join(","));
+ stockSymbol.push(symbol); 
+ fetchData(rootUrl, stockSymbol.join(","));
+ alert("Your stock is added ,close search panel to see your list!");
   }
 
   return (
     <AppContext.Provider
       value={{
-       addNewStock,
+        addNewStock,
         myList,
         menuState,
         changePostionUp,
@@ -253,6 +259,7 @@ fetchData(rootUrl, stockSymbol.join(","));
         updateFilters,
         searchHandle,
         handleSuggestSearch,
+        isLoading,
       }}
     >
       {children}
