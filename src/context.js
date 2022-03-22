@@ -246,8 +246,10 @@ localStorage.setItem("myList", JSON.stringify(stockSymbol));
   };
 
   const removeStock = (symbol) => {
+    const tempSymbolList = stockSymbol.filter((sym) => sym !== symbol);
     const tempList = myList.filter((stock) => stock.symbol !== symbol);
     setMyList(tempList);
+    setStockSymbol(tempSymbolList);
     setFilters({ ...filters, msg: "List is Empty" });
   };
 
