@@ -6,8 +6,17 @@ import { data } from "./utils/StockData";
 
 const AppContext = React.createContext();
 
+
 const AppProvider = ({ children }) => {
-  const [stockSymbol,setStockSymbol]  = useState(["WIX", "MSFT"]);
+  const getLocalStorage = ()=>{
+    let myList = localStorage.getItem('myList')
+    if (myList) {
+      return JSON.parse(localStorage.getItem('myList'))
+    }else{
+      return ["WIX", "MSFT"];
+    }
+  }
+  const [stockSymbol, setStockSymbol] = useState(getLocalStorage());
   const [isLoading,setIsLoading] = useState(false)
   const [myList, setMyList] = useState([]);
   const [ifFetch,setIffetch] = useState(false)
@@ -92,6 +101,10 @@ const AppProvider = ({ children }) => {
         console.error(error);
       });
   };
+
+  useEffect(() => {
+localStorage.setItem("myList", JSON.stringify(stockSymbol));
+  }, [myList]);
 
 
   useEffect(() => {
@@ -239,7 +252,8 @@ const AppProvider = ({ children }) => {
   };
 
   const addNewStock = (symbol)=>{
- stockSymbol.push(symbol); 
+stockSymbol.push(symbol); 
+
  fetchData(rootUrl, stockSymbol.join(","));
  alert("Your stock is added ,close search panel to see your list!");
   }
